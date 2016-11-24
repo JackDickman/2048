@@ -3,10 +3,13 @@ package twenty_forty_eight;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
@@ -14,14 +17,13 @@ public class Display extends JPanel {
 	private Board board;
 	private Scanner in;
 	private int best;
-	
+
 	//---------------------------------------------------------------------
 
-	public Display(Board b) throws FileNotFoundException {
+	public Display(Board b, Frame frame) throws FileNotFoundException {
 		board = b;
 		in = new Scanner(new File("Leaderboard_2048.txt"));
 		best = in.nextInt();
-		in.close();
 
 		addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent e) {
@@ -35,9 +37,33 @@ public class Display extends JPanel {
 			}
 		});
 
+		addMouseListener(new MouseAdapter() { 
+			public void mousePressed(MouseEvent m) { 
+				//leaderboard
+				if(m.getX() >= 290 && m.getX() <= 380 && m.getY() >= 110 && m.getY() <= 160) {
+					Scanner scan;
+					try {
+						scan = new Scanner(new File("Leaderboard_2048.txt"));
+						String s = "";
+						int count = 1;
+						while(scan.hasNextInt() && count <= 10) {
+							s += scan.nextInt() + "\n";
+							count++;
+						}
+						JOptionPane.showMessageDialog(frame, s, "LEADERBOARD", JOptionPane.YES_NO_OPTION);
+					} catch (FileNotFoundException e) {}
+				}
+
+				//menu
+				if(m.getX() >= 180 && m.getX() <= 270 && m.getY() >= 110 && m.getY() <= 160) {
+					JOptionPane.showMessageDialog(frame, "    Jack Dickman\nNovember 24, 2016", "MENU", JOptionPane.YES_NO_OPTION);
+				}
+			}
+		}); 
+
 		setFocusable(true);
 	}
-	
+
 	//---------------------------------------------------------------------
 
 	public void paint(Graphics graphics) {
@@ -203,18 +229,18 @@ public class Display extends JPanel {
 			}
 		}
 	}
-	
+
 	//---------------------------------------------------------------------
-	
+
 	public int getBest() {
 		return best;
 	}
-	
+
 	//---------------------------------------------------------------------
-	
+
 	public void setBest(int b) {
 		best = b;
 	}
-	
+
 	//---------------------------------------------------------------------
 }
