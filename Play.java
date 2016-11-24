@@ -14,10 +14,10 @@ public class Play {
 	//---------------------------------------------------------------------
 
 	public static void main(String[] args) throws InterruptedException, IOException {
-		Board b = new Board();
-		Display display = new Display(b);
-
 		JFrame frame = new JFrame("2048");
+		Board b = new Board();
+		Display display = new Display(b, frame);
+
 		frame.setSize(400, 645);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(display);
