@@ -208,6 +208,8 @@ public class Board {
 	//---------------------------------------------------------------------
 
 	public void add() {
+		int value = Math.random() < 0.9 ? 2 : 4;
+		
 		Random r = new Random();
 		int i = r.nextInt(ROWS);
 		int j = r.nextInt(COLUMNS);
@@ -217,7 +219,7 @@ public class Board {
 			j = r.nextInt(COLUMNS);
 		}
 
-		board[i][j] = 2;
+		board[i][j] = value;
 	}
 
 	//---------------------------------------------------------------------
