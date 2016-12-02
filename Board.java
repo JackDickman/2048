@@ -23,16 +23,16 @@ public class Board {
 	public void initialize() {
 		Random r = new Random();
 
-		int x = r.nextInt(ROWS * COLUMNS);
-		int y = r.nextInt(ROWS * COLUMNS);
-		while(y == x) {
-			y = r.nextInt(16);
+		int tile1 = r.nextInt(ROWS * COLUMNS);
+		int tile2 = r.nextInt(ROWS * COLUMNS);
+		while(tile2 == tile1) {
+			tile1 = r.nextInt(ROWS * COLUMNS);
 		}
 
 		for(int i = 0; i < ROWS; i++) {
 			for(int j = 0; j < COLUMNS; j++) {
-				if((i * ROWS) + j == x || (i * ROWS) + j == y) {
-					board[i][j] = 2;
+				if((i * ROWS) + j == tile1 || (i * ROWS) + j == tile2) {
+					board[i][j] = Math.random() < 0.9 ? 2 : 4;
 				} else {
 					board[i][j] = 0;
 				}
